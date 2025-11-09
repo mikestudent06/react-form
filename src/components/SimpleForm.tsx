@@ -4,6 +4,13 @@ type FormData = {
   fullName: string;
   email: string;
   age: number;
+  cars: string;
+};
+const CarsOptions = {
+  VOLVO: "volvo",
+  SAAB: "saab",
+  MERCEDES: "mercedes",
+  AUDI: "audi",
 };
 
 export const SimpleForm = () => {
@@ -11,10 +18,11 @@ export const SimpleForm = () => {
     fullName: "",
     email: "",
     age: 0,
+    cars: CarsOptions.VOLVO,
   });
-
+  console.log("formData", formData);
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
 
@@ -63,8 +71,35 @@ export const SimpleForm = () => {
           className="border px-2 py-1 w-full"
         />
       </div>
+      <div>
+        <label htmlFor="cars" className="block font-medium">
+          Choose a car:
+        </label>
 
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
+        <label htmlFor="cars" className="block font-medium">
+          Choose a car:
+        </label>
+        <select
+          name="cars"
+          id="cars"
+          value={formData.cars}
+          onChange={handleChange}
+        >
+          <optgroup label="Swedish Cars">
+            <option value={CarsOptions.VOLVO}>Volvo</option>
+            <option value={CarsOptions.SAAB}>Saab</option>
+          </optgroup>
+          <optgroup label="German Cars">
+            <option value={CarsOptions.MERCEDES}>Mercedes</option>
+            <option value={CarsOptions.AUDI}>Audi</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <button
+        type="submit"
+        className="bg-blue-600 text-white px-4 py-2 rounded"
+      >
         Submit
       </button>
     </form>
